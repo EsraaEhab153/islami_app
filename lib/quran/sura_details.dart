@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islami_app/screens/item_sura_details.dart';
+import 'package:islami_app/quran/item_sura_details.dart';
 import 'package:islami_app/style/app_colors.dart';
 
 class SuraDetailsScreen extends StatefulWidget {

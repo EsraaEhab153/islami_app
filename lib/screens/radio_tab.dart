@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/modules/radio_icons_style.dart';
+import 'package:islami_app/style/radio_icons_style.dart';
 
 class RadioTab extends StatelessWidget {
   const RadioTab({super.key});

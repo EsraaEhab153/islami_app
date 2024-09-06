@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../style/app_colors.dart';
+import 'app_colors.dart';
 
 class RadioIconStyle extends StatelessWidget {
   final IconData icon;
