@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: ImageIcon(
                     AssetImage('assets/images/icon_radio.png'),
                   ),
-                  label: 'Rdio',
+                  label: 'Radio',
                 ),
               ],
             ),
