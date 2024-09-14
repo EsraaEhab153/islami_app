@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/hadeth/hadeth_details.dart';
 import 'package:islami_app/hadeth/item_hadeth_name.dart';
 
@@ -28,7 +29,7 @@ class _HadethTabState extends State<HadethTab> {
           thickness: 2,
         ),
         Text(
-          'El Ahadeth',
+          AppLocalizations.of(context)!.hadeth_name,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         Divider(

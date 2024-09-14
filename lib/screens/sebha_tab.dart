@@ -24,7 +24,7 @@ class _SebhaTabState extends State<SebhaTab> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.05),
+          vertical: MediaQuery.of(context).size.height * 0.02),
       child: Column(
         children: [
           Stack(
@@ -39,7 +39,7 @@ class _SebhaTabState extends State<SebhaTab> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.04),
+                    top: MediaQuery.of(context).size.height * 0.064),
                 child: InkWell(
                   onTap: () {
                     turns += 1 / 33;
@@ -82,8 +82,8 @@ class _SebhaTabState extends State<SebhaTab> {
             child: Center(child: Text('$counter')),
           ),
           Container(
-            width: MediaQuery.of(context).size.width * 0.5,
-            height: MediaQuery.of(context).size.height * 0.05,
+            width: MediaQuery.of(context).size.width * 0.75,
+            height: MediaQuery.of(context).size.height * 0.06,
             decoration: BoxDecoration(
               color: AppColors.primaryLightColor,
               borderRadius: BorderRadius.circular(25.0),
@@ -91,7 +91,7 @@ class _SebhaTabState extends State<SebhaTab> {
             child: Center(
                 child: Text(
               '${azkar[index]}',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 24.0),
             )),
           ),
         ],
