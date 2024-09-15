@@ -6,6 +6,8 @@ import 'package:islami_app/screens/theme_bottom_sheet.dart';
 import 'package:islami_app/style/app_colors.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/app_config_theme_provider.dart';
+
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
 
@@ -16,7 +18,8 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppConfigLanguageProvider>(context);
+    var langProvider = Provider.of<AppConfigLanguageProvider>(context);
+    var themeProvider = Provider.of<AppConfigThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
       child: Column(
@@ -41,19 +44,24 @@ class _SettingsTabState extends State<SettingsTab> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
-                        color: AppColors.primaryLightColor,
+                        color: themeProvider.isDark()
+                            ? AppColors.darkGoldColor
+                            : AppColors.primaryLightColor,
                         width: MediaQuery.of(context).size.height * 0.003)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      provider.appLanguage == 'en'
+                      langProvider.appLanguage == 'en'
                           ? AppLocalizations.of(context)!.english
                           : AppLocalizations.of(context)!.arabic,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Icon(
                       Icons.arrow_drop_down,
+                      color: themeProvider.isDark()
+                          ? AppColors.darkGoldColor
+                          : AppColors.primaryLightColor,
                       size: MediaQuery.of(context).size.height * 0.05,
                     )
                   ],
@@ -81,17 +89,24 @@ class _SettingsTabState extends State<SettingsTab> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(
-                        color: AppColors.primaryLightColor,
+                        color: themeProvider.isDark()
+                            ? AppColors.darkGoldColor
+                            : AppColors.primaryLightColor,
                         width: MediaQuery.of(context).size.height * 0.003)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.light,
+                      themeProvider.isDark()
+                          ? AppLocalizations.of(context)!.dark
+                          : AppLocalizations.of(context)!.light,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Icon(
                       Icons.arrow_drop_down,
+                      color: themeProvider.isDark()
+                          ? AppColors.darkGoldColor
+                          : AppColors.primaryLightColor,
                       size: MediaQuery.of(context).size.height * 0.05,
                     )
                   ],

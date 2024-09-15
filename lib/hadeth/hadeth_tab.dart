@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami_app/hadeth/hadeth_details.dart';
 import 'package:islami_app/hadeth/item_hadeth_name.dart';
+import 'package:islami_app/providers/app_config_theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../style/app_colors.dart';
 
@@ -18,6 +20,7 @@ class _HadethTabState extends State<HadethTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigThemeProvider>(context);
     loadHadeth();
     return Column(
       children: [
@@ -25,7 +28,9 @@ class _HadethTabState extends State<HadethTab> {
           child: Image.asset('assets/images/hadeth_logo.png'),
         ),
         Divider(
-          color: AppColors.primaryLightColor,
+          color: provider.isDark()
+              ? AppColors.darkGoldColor
+              : AppColors.primaryLightColor,
           thickness: 2,
         ),
         Text(
@@ -33,7 +38,9 @@ class _HadethTabState extends State<HadethTab> {
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         Divider(
-          color: AppColors.primaryLightColor,
+          color: provider.isDark()
+              ? AppColors.darkGoldColor
+              : AppColors.primaryLightColor,
           thickness: 2,
         ),
         Expanded(

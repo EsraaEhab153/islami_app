@@ -30,4 +30,33 @@ class MyThemeData {
       ),
     ),
   );
+
+  static final ThemeData darkModeStyle = ThemeData(
+    primaryColor: AppColors.primaryDarkColor,
+    scaffoldBackgroundColor: Colors.transparent,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color: AppColors.whiteColor,
+      ),
+      elevation: 0.0,
+      centerTitle: true,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.primaryDarkColor,
+      selectedItemColor: AppColors.darkGoldColor,
+    ),
+    textTheme: TextTheme(
+      bodyLarge: TextStyle(
+        color: AppColors.whiteColor,
+        fontSize: 30,
+        fontWeight: FontWeight.bold,
+      ),
+      bodyMedium: TextStyle(
+        color: AppColors.whiteColor,
+        fontSize: 25,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
 }
