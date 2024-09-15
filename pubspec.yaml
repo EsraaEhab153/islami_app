@@ -39,6 +39,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.7
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -136,7 +137,7 @@ flutter_native_splash:
   # background_image_dark must be specified.  color_dark and background_image_dark cannot both be
   # set.
   #color_dark: "#042a49"
-  #background_image_dark: "assets/dark-background.png"
+  background_image_dark: "assets/images/dark_splash.png"
   #image_dark: assets/splash-invert.png
   #branding_dark: assets/dart_dark.png
 
@@ -165,7 +166,7 @@ flutter_native_splash:
   # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
   # apply when the device is in dark mode. If they are not specified, the app will use the
   # parameters from above.
-  #image_dark: assets/android12splash-invert.png
+  image_dark: assets/images/dark_splash.png
   #color_dark: "#042a49"
   #icon_background_color_dark: "#eeeeee"
 
