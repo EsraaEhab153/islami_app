@@ -8,10 +8,17 @@ import 'package:islami_app/screens/home_screen.dart';
 import 'package:islami_app/style/theme_data.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  AppConfigLanguageProvider langProvider = AppConfigLanguageProvider();
+  AppConfigThemeProvider themeProvider = AppConfigThemeProvider();
+
+  await langProvider.getLang();
+  await themeProvider.getTheme();
+
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => AppConfigLanguageProvider()),
-    ChangeNotifierProvider(create: (context) => AppConfigThemeProvider()),
+    ChangeNotifierProvider(create: (context) => langProvider),
+    ChangeNotifierProvider(create: (context) => themeProvider),
   ], child: MyApp()));
 }
 
