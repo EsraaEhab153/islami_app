@@ -4,6 +4,8 @@ import 'package:islami_app/providers/app_config_language_provider.dart';
 import 'package:islami_app/style/app_colors.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/app_config_theme_provider.dart';
+
 class LanguageBottomSheet extends StatefulWidget {
   const LanguageBottomSheet({super.key});
 
@@ -14,8 +16,12 @@ class LanguageBottomSheet extends StatefulWidget {
 class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppConfigLanguageProvider>(context);
+    var langProvider = Provider.of<AppConfigLanguageProvider>(context);
+    var themeProvider = Provider.of<AppConfigThemeProvider>(context);
     return Container(
+      color: themeProvider.isDark()
+          ? AppColors.primaryDarkColor
+          : AppColors.whiteColor,
       height: MediaQuery.of(context).size.height * 0.25,
       padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
       child: Column(
@@ -24,11 +30,12 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
           InkWell(
               onTap: () {
                 // change language to english
-                provider.changeLanguage('en');
+                langProvider.changeLanguage('en');
               },
               // english is selected
-              child: provider.appLanguage == 'en'
-                  ? selectedItemWidget(AppLocalizations.of(context)!.english)
+              child: langProvider.appLanguage == 'en'
+                  ? selectedItemWidget(AppLocalizations.of(context)!.english,
+                      themeProvider.isDark())
                   : unSelectedItemWidget(
                       AppLocalizations.of(context)!.english)),
           SizedBox(
@@ -37,10 +44,11 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
           InkWell(
             onTap: () {
               //change language to arabic
-              provider.changeLanguage('ar');
+              langProvider.changeLanguage('ar');
             },
-            child: provider.appLanguage == 'ar'
-                ? selectedItemWidget(AppLocalizations.of(context)!.arabic)
+            child: langProvider.appLanguage == 'ar'
+                ? selectedItemWidget(AppLocalizations.of(context)!.arabic,
+                    themeProvider.isDark())
                 : unSelectedItemWidget(AppLocalizations.of(context)!.arabic),
           ),
         ],
@@ -48,21 +56,21 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     );
   }
 
-  Widget selectedItemWidget(String lang) {
+  Widget selectedItemWidget(String lang, bool isDark) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           lang,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: AppColors.primaryLightColor),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: isDark
+                  ? AppColors.darkGoldColor
+                  : AppColors.primaryLightColor),
         ),
         Icon(
           Icons.check,
           size: MediaQuery.of(context).size.height * 0.035,
-          color: AppColors.primaryLightColor,
+          color: isDark ? AppColors.darkGoldColor : AppColors.primaryLightColor,
         )
       ],
     );

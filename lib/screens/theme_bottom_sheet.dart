@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/app_config_theme_provider.dart';
+import '../style/app_colors.dart';
 
 class ThemeBottomSheet extends StatefulWidget {
   const ThemeBottomSheet({super.key});
@@ -10,8 +15,10 @@ class ThemeBottomSheet extends StatefulWidget {
 class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    //var provider = Provider.of<AppConfigLanguageProvider>(context);
+    var provider = Provider.of<AppConfigThemeProvider>(context);
     return Container(
+      color:
+          provider.isDark() ? AppColors.primaryDarkColor : AppColors.whiteColor,
       height: MediaQuery.of(context).size.height * 0.25,
       padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
       child: Column(
@@ -19,48 +26,56 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
         children: [
           InkWell(
               onTap: () {
-                // change language to english
-                //provider.changeLanguage('en');
-              },
-              // english is selected
-              child: Text('Light')),
+              // change theme to light
+              provider.changeTheme(ThemeMode.light);
+            },
+            // light is selected
+            child: provider.isDark()
+                ? unSelectedItemWidget(AppLocalizations.of(context)!.light)
+                : selectedItemWidget(
+                    AppLocalizations.of(context)!.light, provider.isDark()),
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.03,
           ),
           InkWell(
               onTap: () {
-                //change language to arabic
-                //provider.changeLanguage('ar');
+                //change theme to dark
+                provider.changeTheme(ThemeMode.dark);
               },
-              child: Text('Dark')),
+              child: provider.isDark()
+                  ? selectedItemWidget(
+                      AppLocalizations.of(context)!.dark, provider.isDark())
+                  : unSelectedItemWidget(AppLocalizations.of(context)!.dark)),
         ],
       ),
     );
   }
 
-// Widget selectedItemWidget(String lang){
-//   return Row(
-//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//     children: [
-//       Text(
-//         lang,
-//         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-//             color: AppColors.primaryLightColor
-//         ),
-//       ),
-//       Icon(
-//         Icons.check,
-//         size: MediaQuery.of(context).size.height * 0.035,
-//         color: AppColors.primaryLightColor,
-//       )
-//     ],
-//   );
-// }
-//
-// Widget unSelectedItemWidget(String lang){
-//   return Text(
-//     lang,
-//     style: Theme.of(context).textTheme.bodyMedium,
-//   );
-// }
+  Widget selectedItemWidget(String theme, bool isDark) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          theme,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: isDark
+                  ? AppColors.darkGoldColor
+                  : AppColors.primaryLightColor),
+        ),
+        Icon(
+          Icons.check,
+          size: MediaQuery.of(context).size.height * 0.035,
+          color: isDark ? AppColors.darkGoldColor : AppColors.primaryLightColor,
+        )
+      ],
+    );
+  }
+
+  Widget unSelectedItemWidget(String theme) {
+    return Text(
+      theme,
+      style: Theme.of(context).textTheme.bodyMedium,
+    );
+  }
 }

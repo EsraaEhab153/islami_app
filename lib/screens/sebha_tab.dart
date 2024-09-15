@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/providers/app_config_theme_provider.dart';
 import 'package:islami_app/style/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -22,9 +24,10 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigThemeProvider>(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.02),
+          vertical: MediaQuery.of(context).size.height * 0.01),
       child: Column(
         children: [
           Stack(
@@ -32,14 +35,18 @@ class _SebhaTabState extends State<SebhaTab> {
               Padding(
                 padding: EdgeInsets.only(
                   left: MediaQuery.of(context).size.width * 0.46,
+                  right: MediaQuery.of(context).size.width * 0.36,
                 ),
                 child: Image.asset(
-                  'assets/images/sebha_head_logo.png',
+                  provider.isDark()
+                      ? 'assets/images/sebha_head_dark.png'
+                      : 'assets/images/sebha_head_logo.png',
+                  width: MediaQuery.of(context).size.width * 0.177,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.064),
+                    top: MediaQuery.of(context).size.height * 0.09),
                 child: InkWell(
                   onTap: () {
                     turns += 1 / 33;
@@ -55,9 +62,11 @@ class _SebhaTabState extends State<SebhaTab> {
                   },
                   child: AnimatedRotation(
                     turns: turns,
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     child: Image.asset(
-                      'assets/images/sebha_body_logo.png',
+                      provider.isDark()
+                          ? 'assets/images/sebha_body_dark.png'
+                          : 'assets/images/sebha_body_light.png',
                       width: MediaQuery.of(context).size.height * 0.56,
                       height: MediaQuery.of(context).size.height * 0.30,
                     ),
@@ -76,7 +85,9 @@ class _SebhaTabState extends State<SebhaTab> {
             width: MediaQuery.of(context).size.width * 0.16,
             height: MediaQuery.of(context).size.height * 0.09,
             decoration: BoxDecoration(
-              color: AppColors.lightGoldColor,
+              color: provider.isDark()
+                  ? AppColors.primaryDarkColor
+                  : AppColors.primaryLightColor,
               borderRadius: BorderRadius.circular(25.0),
             ),
             child: Center(child: Text('$counter')),
@@ -85,13 +96,19 @@ class _SebhaTabState extends State<SebhaTab> {
             width: MediaQuery.of(context).size.width * 0.75,
             height: MediaQuery.of(context).size.height * 0.06,
             decoration: BoxDecoration(
-              color: AppColors.primaryLightColor,
+              color: provider.isDark()
+                  ? AppColors.darkGoldColor
+                  : AppColors.primaryLightColor,
               borderRadius: BorderRadius.circular(25.0),
             ),
             child: Center(
                 child: Text(
               '${azkar[index]}',
-              style: TextStyle(color: Colors.white, fontSize: 24.0),
+              style: TextStyle(
+                  color: provider.isDark()
+                      ? AppColors.blackColor
+                      : AppColors.whiteColor,
+                  fontSize: 24.0),
             )),
           ),
         ],

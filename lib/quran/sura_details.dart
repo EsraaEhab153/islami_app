@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami_app/providers/app_config_theme_provider.dart';
 import 'package:islami_app/quran/item_sura_details.dart';
 import 'package:islami_app/style/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = 'sura_details_screen';
@@ -17,6 +20,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigThemeProvider>(context);
     SuraDetailsArgs sura =
         ModalRoute.of(context)?.settings.arguments as SuraDetailsArgs;
     if (verses.isEmpty) {
@@ -25,23 +29,25 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     return Stack(
       children: [
         Image.asset(
-          'assets/images/background_image.png',
+          provider.isDark()
+              ? 'assets/images/dark_background.png'
+              : 'assets/images/background_image.png',
           width: double.infinity,
           height: double.infinity,
           fit: BoxFit.fill,
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text(
-              'Islami',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            title: Text(AppLocalizations.of(context)!.app_title,
+                style: Theme.of(context).textTheme.bodyLarge),
           ),
           body: Container(
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.07),
             width: MediaQuery.of(context).size.width * 0.85,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(200, 248, 248, 248),
+              color: provider.isDark()
+                  ? AppColors.primaryDarkColor
+                  : const Color.fromARGB(200, 248, 248, 248),
               borderRadius: BorderRadius.circular(25.0),
               border: Border.all(
                 width: 0.5,
@@ -52,15 +58,22 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
               children: [
                 Text(
                   'سورة ${sura.suraName}',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: provider.isDark()
+                          ? AppColors.darkGoldColor
+                          : AppColors.blackColor),
                 ),
-                const Divider(
-                  color: AppColors.primaryLightColor,
+                Divider(
+                  color: provider.isDark()
+                      ? AppColors.darkGoldColor
+                      : AppColors.primaryLightColor,
                   thickness: 2,
                 ),
                 (verses.isEmpty)
                     ? CircularProgressIndicator(
-                        color: AppColors.primaryLightColor,
+                        color: provider.isDark()
+                            ? AppColors.darkGoldColor
+                            : AppColors.primaryLightColor,
                       )
                     : Expanded(
                         child: ListView.builder(
